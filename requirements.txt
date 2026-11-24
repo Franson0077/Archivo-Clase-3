@@ -1,12 +1,20 @@
+# Proveedores de LLM y configuracion (Modulo 1)
 openai>=3.45.0
 anthropic>=2.5.0
 pydantic>=2.14.0
 python-dotenv>=1.2.0
-# Lo importan directamente los tests (test_fallback.py, test_chain.py) para
-# simular errores HTTP. Se declara aunque ya lo instalen los SDK: asi el entorno
-# no depende de una dependencia indirecta.
+# Lo importan directamente los tests (test_fallback.py, test_chain.py,
+# test_rag.py) para simular errores HTTP. Se declara aunque ya lo instalen los
+# SDK: asi el entorno no depende de una dependencia indirecta.
 httpx2>=2.16.0
-# Pre-entrega 2: pipeline LCEL
+
+# Cadenas LCEL (Pre-entrega 2)
 langchain-core>=1.8.0
 langchain-openai>=1.7.4
 langchain-anthropic>=1.7.10
+
+# RAG (Pre-entrega 3)
+chromadb>=1.5.9                   # base vectorial local persistente
+langchain-chroma>=1.2.0           # integracion LangChain <-> ChromaDB
+langchain-text-splitters>=1.2.0   # RecursiveCharacterTextSplitter
+tiktoken>=0.14.0                  # contar tokens (chunking de 500 tokens y tests)

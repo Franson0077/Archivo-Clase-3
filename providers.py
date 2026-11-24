@@ -24,6 +24,8 @@ Mapa de la consigna dentro de este archivo:
     PRE-ENTREGA 2 -> create_chat_model(): el mismo proveedor, con la misma clave,
                      modelo, reintentos y timeout, pero como modelo de LangChain
                      (ChatOpenAI / ChatAnthropic) para usarlo en chain.py.
+    PRE-ENTREGA 3 -> create_embeddings(): modelo de embeddings para el RAG
+                     (solo OpenAI; Anthropic no ofrece embeddings).
 """
 
 import os
@@ -44,8 +46,9 @@ import openai
 
 # PRE-ENTREGA 2 - Clientes de LangChain para cada proveedor.
 from langchain_anthropic import ChatAnthropic
+from langchain_core.embeddings import Embeddings
 from langchain_core.language_models import BaseChatModel
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 
 from schemas import ErrorKind, GenerationParams
 
@@ -107,6 +110,13 @@ class BaseProvider(ABC):
         """
         raise NotImplementedError(f"{self.name} no tiene modelo de LangChain.")
 
+    def create_embeddings(self, model: str) -> Embeddings:
+        """
+        PRE-ENTREGA 3 - Modelo de embeddings de este proveedor (texto -> vector).
+        Por defecto no hay: Anthropic, por ejemplo, no ofrece embeddings.
+        """
+        raise NotImplementedError(f"{self.name} no ofrece modelos de embeddings.")
+
     @property
     def outage_errors(self) -> tuple[type[Exception], ...]:
         # Errores de "caida" (rate limit, red, servidor): los que justifican
@@ -152,6 +162,15 @@ class OpenAIProvider(BaseProvider):
             api_key=self._api_key,
             temperature=temperature,
             max_tokens=max_tokens,
+            max_retries=self.max_retries,
+            timeout=self.timeout,
+        )
+
+    def create_embeddings(self, model: str) -> OpenAIEmbeddings:
+        # PRE-ENTREGA 3 - Misma clave, reintentos y timeout que el chat.
+        return OpenAIEmbeddings(
+            model=model,
+            api_key=self._api_key,
             max_retries=self.max_retries,
             timeout=self.timeout,
         )
