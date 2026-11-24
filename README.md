@@ -88,11 +88,10 @@ python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```
 
-> **Sobre el paquete `langchain`:** la consigna nombra "langchain". Se usan sus
-> paquetes modulares, que son los que el código importa: `langchain-core`
-> (cadenas LCEL), `langchain-text-splitters`, `langchain-chroma`,
-> `langchain-openai` y `langchain-anthropic`. El paquete `langchain` completo
-> no hace falta.
+> **Sobre el paquete `langchain`:** figura en `requirements.txt` porque lo pide
+> la consigna. El código importa sus paquetes modulares, también declarados:
+> `langchain-core` (cadenas LCEL), `langchain-text-splitters`,
+> `langchain-chroma`, `langchain-openai` y `langchain-anthropic`.
 
 > **Si usás Python 3.15:** dos dependencias internas todavía no publican una
 > versión precompilada para 3.15 y fallan al compilar sin Visual C++:

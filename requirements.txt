@@ -14,6 +14,9 @@ langchain-openai>=1.7.4
 langchain-anthropic>=1.7.10
 
 # RAG (Pre-entrega 3)
+# Paquete pedido por la consigna. El codigo importa sus partes modulares
+# (langchain-core, -text-splitters, -chroma, -openai, -anthropic), declaradas aparte.
+langchain>=1.0.0
 chromadb>=1.5.9                   # base vectorial local persistente
 langchain-chroma>=1.2.0           # integracion LangChain <-> ChromaDB
 langchain-text-splitters>=1.2.0   # RecursiveCharacterTextSplitter
